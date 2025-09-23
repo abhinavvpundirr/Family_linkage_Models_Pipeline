@@ -1,11 +1,11 @@
 # Family Linkage Training Pipeline Configuration
 
 database:
-  user: "postgres"                   # Replace with your PostgreSQL username
-  password: "familylinkage"          # Replace with your PostgreSQL password  
-  host: "localhost"                  # Replace with your PostgreSQL host
+  user: "--"                   # Replace with your PostgreSQL username
+  password: "--"          # Replace with your PostgreSQL password  
+  host: "--"                  # Replace with your PostgreSQL host
   port: 5432                         # Replace with your PostgreSQL port
-  database: "postgres"               # Replace with your database name
+  database: "--"               # Replace with your database name
 
 data:
   raw_dataset: data/raw/raw_data.csv

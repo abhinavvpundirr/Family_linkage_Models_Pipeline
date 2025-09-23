@@ -197,7 +197,7 @@ def main(relationship_type, size_threshold, max_block_size, window_size,
         total_pairs = len(results_summary) if results_summary is not None and not results_summary.empty else 0
         
         print(f"\n{'='*60}")
-        print(f"TEST PIPELINE COMPLETE")
+        print(f"ENHANCED TEST PIPELINE COMPLETE")
         print(f"{'='*60}")
         print(f"Relationship: {relationship_type}")
         print(f"Dataset size: {dataset_size} records")
@@ -218,7 +218,7 @@ def main(relationship_type, size_threshold, max_block_size, window_size,
         raise
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Family Linkage Test Pipeline")
+    parser = argparse.ArgumentParser(description="Enhanced Family Linkage Test Pipeline")
     parser.add_argument('--relationship', type=str, required=True, help="Relationship type")
     parser.add_argument('--size-threshold', type=int, default=10000, help="Size threshold for processing strategy")
     parser.add_argument('--max-block-size', type=int, default=500, help="Max block size for optimized comparison")
