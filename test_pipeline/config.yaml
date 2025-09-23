@@ -1,9 +1,9 @@
 database:
-  user: "--"                  # Replace with your PostgreSQL username
-  password: "--"          # Replace with your PostgreSQL password  
-  host: "--"                  # Replace with your PostgreSQL host
+  user: "postgres"                  # Replace with your PostgreSQL username
+  password: "familylinkage"          # Replace with your PostgreSQL password  
+  host: "localhost"                  # Replace with your PostgreSQL host
   port: 5432                         # Replace with your PostgreSQL port
-  database: "--"  
+  database: "postgres"  
 
 data:
   test_dataset: "data/test/testing_dataset.csv"

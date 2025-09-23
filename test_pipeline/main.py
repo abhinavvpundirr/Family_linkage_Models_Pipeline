@@ -218,7 +218,7 @@ def main(relationship_type, size_threshold, max_block_size, window_size,
         raise
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Enhanced Family Linkage Test Pipeline")
+    parser = argparse.ArgumentParser(description="Family Linkage Test Pipeline")
     parser.add_argument('--relationship', type=str, required=True, help="Relationship type")
     parser.add_argument('--size-threshold', type=int, default=10000, help="Size threshold for processing strategy")
     parser.add_argument('--max-block-size', type=int, default=500, help="Max block size for optimized comparison")

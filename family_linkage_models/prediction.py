@@ -11,7 +11,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 
 def compare(database_url, job_schema, records_table, logger, size_threshold=10000, 
            max_block_size=500, window_size=100, overlap=50, blocking_batch_size=100000, 
-           num_workers=4, similarity_threshold=2.0, progress_callback=None, tqdm_flag=False):
+           num_workers=4, similarity_threshold=2.0, progress_callback=None, tqdm_flag=True):
     
     def update_progress(message, percentage):
         if progress_callback:
@@ -281,7 +281,7 @@ def _run_parallel_exhaustive_comparison_with_progress(engine, job_schema, record
         ).scalar()
         logger.info(f"Merged {final_count} unique record pairs")
 
-def extract_processed_records_chunked(engine, job_schema, chunk_size=50000, logger=None, tqdm_flag=False):
+def extract_processed_records_chunked(engine, job_schema, chunk_size=50000, logger=None, tqdm_flag=True):
     try:
         # Get total count first
         with engine.connect() as connection:
@@ -416,7 +416,7 @@ def _worker_compare_records_exhaustive(db_url, job_schema, records_table,
         raise
 
 def predict_chunked(engine, job_schema, relationship, model_directory, output_directory, 
-                   logger, chunk_size=50000, probable_match_threshold=None, match_threshold=None, tqdm_flag=False):
+                   logger, chunk_size=50000, probable_match_threshold=None, match_threshold=None, tqdm_flag=True):
     try:
         model_path = os.path.join(model_directory, f'rf_{relationship}_model.pkl')
         if not os.path.exists(model_path):
