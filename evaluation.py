@@ -39,22 +39,26 @@ class RFModelEvaluator:
             probability_col: 'y_pred_proba'
         })
         
-        labels_data = self.labels_df.copy()
-        labels_data['y_true'] = (labels_data['relationship'] == relationship_type).astype(int)
+        # Filter labels for this specific relationship type
+        # Note: Check if 'partner' maps to 'spouse' in your labels!
+        labels_for_type = self.labels_df[self.labels_df['relationship'] == relationship_type].copy()
         
-        merged_df = pd.merge(
-            pred_data, 
-            labels_data[['from_id', 'to_id', 'y_true']], 
-            on=['from_id', 'to_id'], 
-            how='inner'
+        # Create set of positive pairs from labels (using from_pid and to_pid)
+        positive_pairs = set(zip(labels_for_type['from_id'], labels_for_type['to_id']))
+        
+        # Assign y_true: 1 if pair exists in labels, 0 otherwise
+        pred_data['y_true'] = pred_data.apply(
+            lambda row: 1 if (row['from_id'], row['to_id']) in positive_pairs else 0,
+            axis=1
         )
         
         print(f"DATA PREPARATION FOR {relationship_type.upper()} RELATIONSHIP")
-        print(f"Merged dataset shape: {merged_df.shape}")
-        print(f"Cases with {relationship_type} relationship: {merged_df['y_true'].sum():,}")
-        print(f"Cases without {relationship_type} relationship: {(merged_df['y_true'] == 0).sum():,}")
+        print(f"Total predictions to evaluate: {len(pred_data):,}")
+        print(f"Positive labels found in labels dataset: {len(positive_pairs):,}")
+        print(f"Cases with {relationship_type} relationship (y_true=1): {pred_data['y_true'].sum():,}")
+        print(f"Cases without {relationship_type} relationship (y_true=0): {(pred_data['y_true'] == 0).sum():,}")
         
-        return merged_df
+        return pred_data
     
     def evaluate_single_relationship(self, relationship_type, threshold=0.5):
         print(f"EVALUATING {relationship_type.upper()} RELATIONSHIP MODEL")
